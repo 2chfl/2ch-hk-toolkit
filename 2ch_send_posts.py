@@ -5,7 +5,7 @@ import time
 import threading
 
 """
-https://github.com/AdminAnticaptcha/anticaptcha-python - anti-captcha com api doc
+https://github.com/AdminAnticaptcha/anticaptcha-python - anti-captcha com api documentation
 """
 
 
