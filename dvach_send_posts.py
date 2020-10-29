@@ -31,20 +31,26 @@ class dvachdesc():
     def get_balance(self):
         print("Balance: {} $".format(self.solver.get_balance()))
 
-    def send_post(self, board, thread, comment, filepath=None, email=''):
+    def send_post(self, board, thread, comment='', filepath=None, filebin=None, email=''):
         """
         board    - int | b/vg/v/s/etc
         thread   - int | thread's number
         comment  - str | post's text
         filepath - str | path to image
+        filebin  - bin | binary file
         email    - str | post's email field. set to 'sage' as optional
         """
         if filepath:
             file = {}
             file['image'] = open(filepath,'rb').read()
+        elif filebin:
+            file = {}
+            file['image'] = filebin
         else:
             file = None
 
+
+        
         g_response = self.solver.solve_and_return_solution()
         if g_response != 0:
             req = requests.post("https://2ch.hk/makaba/posting.fcgi?json=1", data={

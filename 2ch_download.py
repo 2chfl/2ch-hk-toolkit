@@ -11,19 +11,6 @@ def get_json(url):
     response = requests.get(url)
     return json.loads(response.text)
 
-def get_path_size(total_size, path):
-    # print progress
-    while True:
-        curr_dir_size = 0
-        time.sleep(5)
-        for file in os.listdir(path):
-            curr_dir_size += os.path.getsize(path + file) / 1024
-        
-        print("About done: {}%".format(round(curr_dir_size / total_size * 100)))
-
-        if curr_dir_size > 0.8 * total_size:
-            break
-
 def download_file(url, path):
     # single file download
     site = 'https://2ch.hk'
@@ -49,7 +36,6 @@ def get_media(url):
                 if file['type'] in [6,10]: 
                     videos += 1
                 
-
     print(f"Media: {len(media)}\tImages: {len(media) - videos}\t Videos: {videos}\nTotal size:\t{round(total_size / 1024, 2)} Mb")
     return(media, total_size)
 
@@ -68,8 +54,6 @@ def download_supervisor(got_media, thread, path, tdc):
             
         path = thread + "/"
 
-    progress = threading.Thread(target=get_path_size, args=(got_media[1],path,))
-    progress.start()
 
     # print("Started at\t{}".format(time.strftime("%X")))
     iter = tdc
